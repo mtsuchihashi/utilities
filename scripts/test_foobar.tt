@@ -1,0 +1,42 @@
+# /usr/bin/python3
+# -*- coding: utf-8 -*-
+import unittest
+from {{test_module}} import {{test_target}}
+
+{% for module in modules %}
+{%- if module.target -%}
+from {{module.name}} import {{module.target}}
+{%- else -%}
+import {{module.name}}
+{%- endif %}
+{% endfor %}
+
+
+class TestForBar(unittest.TestCase):
+    def setUp(self):
+        {%- if setups %}
+        {%- for setup in setups %}
+        {{setup}}
+        {%- endfor %}
+        {%- else %}
+        pass
+        {% endif %}
+
+    def tearDown(self):
+        {%- if setup %}
+        {{setup}}
+        {%- else %}
+        pass
+    {% endif %}
+
+    {%- if testees %}
+    {%- for testee in testees %}
+    {{testee}}
+    {%- endfor %}
+    {%- else %}
+    def test_dummy(self):
+        self.fail()
+    {% endif %}
+
+if __name__ == '__main__':
+    unittest.main()

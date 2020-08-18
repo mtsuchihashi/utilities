@@ -1,0 +1,5 @@
+det test_01(self):
+    testtee = self.origin.testee
+    actual = self.data
+    self.assertEqual(1, actual)
+    self.fail()
